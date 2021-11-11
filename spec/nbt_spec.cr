@@ -107,7 +107,7 @@ describe NBT do
   end
 
   it "handles big example" do
-    byte_sequence = Array(Int8).new { |n| ((n*n*255+n*7)%100).to_i8 }
+    byte_sequence = Array(Int8).new(1000) { |n| ((n*n*255+n*7)%100).to_i8 }
     file_nbt_equality("big1.nbt", {
       "byteTest" => 127i8,
       "shortTest" => 32767i16,
