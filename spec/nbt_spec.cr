@@ -11,16 +11,12 @@ module Spec
       equality = (actual_tag == expected_tag && actual_tag.raw.class == expected_tag.raw.class)
       return false unless equality
       if actual_tag.raw.is_a? Hash
-        actual_hash = expected_tag.raw.as Hash
-        expected_hash = expected_tag.raw.as Hash
-        actual_hash.all? do |k, v|
-          recursive_equality expected_hash[k], v
+        expected_tag.raw.as(Hash).all? do |k, v|
+          recursive_equality expected_tag.raw.as(Hash)[k], v
         end
       elsif actual_tag.raw.is_a? Array(NBT::Tag)
-        actual_array = expected_tag.raw.as Array(NBT::Tag)
-        expected_array = expected_tag.raw.as Array(NBT::Tag)
-        actual_array.each.with_index.all? do |i, j|
-          recursive_equality expected_array[j], i
+        actual_tag.raw.as(Array(NBT::Tag)).each.with_index.all? do |i, j|
+          recursive_equality expected_tag.raw.as(Array(NBT::Tag))[j], i
         end
       else true
       end
