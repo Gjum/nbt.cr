@@ -1,0 +1,25 @@
+image: "crystallang/crystal:latest"
+
+include:
+- template: Security/SAST.gitlab-ci.yml
+
+# Cache shards in between builds
+cache:
+  paths:
+    - lib
+
+before_script:
+  - apt-get update -qq && apt-get install -y -qq libxml2-dev
+  - crystal -v  # Print out Crystal version for debugging
+  - shards
+
+stages:
+- test
+
+sast:
+  stage: test
+
+spec:
+  stage: test
+  script:
+    - crystal spec
